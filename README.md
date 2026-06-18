@@ -102,7 +102,8 @@ domain tags, and updated stats.
 ```ini
 live_app  = https://hichamslimani.github.io/ripple/
 network   = GenLayer Bradbury Testnet
-contract  = TBD (set by parent after deploy)
+contract  = 0xC476B82106565CdB55920712378c25EC2E611B56
+deploy_tx = 0xc1b8f70141615c80a9ae5a99870ba9bfc81b83801944ad61d75f9c683fdf1161
 runner    = py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6
 faucet    = https://testnet-faucet.genlayer.foundation/
 explorer  = https://explorer-bradbury.genlayer.com
