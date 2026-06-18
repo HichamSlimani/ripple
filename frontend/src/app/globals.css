@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Phosphor field simulator - dark oscilloscope lab */
+  --bg-rgb: 6 16 14; /* #06100e */
+  --panel-rgb: 10 24 21;
+  --panel-2-rgb: 14 32 28;
+  --grid: rgba(102, 255, 194, 0.06);
+
+  --ink-rgb: 222 246 238; /* primary text */
+  --muted-rgb: 142 178 168; /* secondary */
+  --faint-rgb: 86 116 108; /* tertiary */
+
+  --phosphor-rgb: 102 255 194; /* #66ffc2 live projection */
+  --coral-rgb: 255 106 90; /* #ff6a5a reserved high instability */
+  --amber-rgb: 255 201 112; /* mid instability */
+
+  --font-display: 'Rajdhani', sans-serif;
+  --font-body: 'Onest', system-ui, sans-serif;
+  --font-mono: 'Sometype Mono', ui-monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: rgb(var(--bg-rgb));
+  color: rgb(var(--ink-rgb));
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'tnum' 1, 'cv01' 1;
+  overflow-x: hidden;
+}
+
+/* tabular numerals everywhere numbers matter */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+h1,
+h2,
+h3,
+.display {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+  font-weight: 600;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* faint lab gridlines behind content */
+.labgrid {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.hairline {
+  border-color: rgba(102, 255, 194, 0.14);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--phosphor-rgb));
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+::selection {
+  background: rgba(102, 255, 194, 0.28);
+  color: rgb(var(--ink-rgb));
+}
+
+/* phosphor glow helpers */
+.glow-mint {
+  box-shadow: 0 0 0 1px rgba(102, 255, 194, 0.4), 0 0 24px -6px rgba(102, 255, 194, 0.5);
+}
+.text-glow {
+  text-shadow: 0 0 16px rgba(102, 255, 194, 0.5);
+}
+.text-glow-coral {
+  text-shadow: 0 0 16px rgba(255, 106, 90, 0.55);
+}
+
+/* scanline shimmer for the console */
+@keyframes sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+.sweep::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(102, 255, 194, 0.12), transparent);
+  animation: sweep 2.6s linear infinite;
+  pointer-events: none;
+}
+
+/* skeleton shimmer */
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+.skeleton {
+  background: rgba(102, 255, 194, 0.08);
+  border-radius: 4px;
+  animation: pulse-soft 1.5s ease-in-out infinite;
+}
+
+/* thin custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(var(--bg-rgb));
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(102, 255, 194, 0.18);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 255, 194, 0.32);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .sweep::after {
+    display: none;
+  }
+}
